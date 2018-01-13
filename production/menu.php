@@ -48,7 +48,7 @@
           <li><a><i class="fa fa-cogs"></i> Configuration <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="users.php">จัดการสมาชิก</a></li>
-              <li><a href="index.php?file=rooms">จัดการห้อง</a></li>
+              <li><a href="rooms.php">จัดการห้อง</a></li>
               <li><a href="index.php?file=devices">จัดการอุปกรณ์</a></li>
               <li><a href="index.php?file=active-booking">อนุมัติการจองห้อง</a></li>
               <li><a href="index.php?file=active-borrow">อนุมัติการยืมอุปกรณ์</a></li>

@@ -3,7 +3,7 @@ include '../public/function.php';
 CheckAuthenticationAndAuthorization();
 try {
   $conn = PDOConnector();
-  $sql = "SELECT * FROM users";
+  $sql = "SELECT * FROM rooms";
   $query = $conn->prepare($sql);
   $query ->execute();
 } catch (\Exception $e) {
@@ -19,7 +19,7 @@ try {
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <title>R-Reservation | </title>
+     <title>Rooms | </title>
 
      <!-- Bootstrap -->
      <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -53,10 +53,10 @@ try {
 <div class="col-md-12 col-sm-12 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
-      <h2>จัดการข้อมูลสมาชิก</h2>
+      <h2>จัดการข้อมูลห้อง</h2>
       <ul class="nav navbar-right">
         <li>
-          <button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addModal" data-placement="top" title="เพิ่มห้อง"><i class="fa fa-plus"></i> เพิ่มสมาชิก</button>
+          <button class="btn btn-primary" id="add" data-toggle="modal" data-target="#addModal" data-placement="top" title="เพิ่มห้อง"><i class="fa fa-plus"></i> เพิ่มห้อง</button>
         </li>
       </ul>
       <div class="clearfix"></div>
@@ -67,9 +67,10 @@ try {
     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th witth="5">#</th>
-          <th width="27.5%">ชื่อ</th>
-          <th width="27.5%">นามสกุล</th>
+          <th>#</th>
+          <th>ชื่อ</th>
+          <th>รูปภาพ</th>
+          <th>สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
           <th width="10%">ลบ</th>
@@ -83,11 +84,20 @@ try {
         ?>
         <tr>
           <th><?=$i++;?></th>
-          <th><?=$data->first_name;?></th>
-          <th><?=$data->last_name;?></th>
-          <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->user_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
-          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></th>
-          <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->user_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
+          <th><?=$data->room_name;?></th>
+          <th><?=$data->room_image;?></th>
+          <th>
+            <center>
+              <?php if ($data->room_status==0) { ?>
+              <label  class="label label-danger" >ปิดใช้งาน</label>
+              <?php }else { ?>
+              <label class="label label-success"> เปิดใช้งาน </label>
+              <?php } ?>
+            </center>
+          </th>
+          <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->room_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
+          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->room_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></th>
+          <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->room_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
         </tr>
         <?php }} ?>
       </tbody>
@@ -98,8 +108,8 @@ try {
 </div>
 </div>
 </div>
-<?php include "crud-users/viewModal.php";?>
-<?php include "crud-users/insertModal.php";?>
+<?php include "crud-rooms/viewModal.php";?>
+<?php include "crud-rooms/insertModal.php";?>
 <?php include_once 'footer.php'?>
 </div>
 </div>
@@ -138,54 +148,22 @@ try {
 <script src="../vendors/sweetalert2/dist/sweetalert2.min.js"></script>
 <script>
 $(document).ready(function(){
-  //ถ้ามีการกดปุ่ม เพิ่มสมาชิก
+  //ถ้ามีการกดปุ่ม เพิ่มสมาชิก ให้ทำการเซ็ตค่าใน textbox เป็นค่าว่าง
   $('#add').click(function(){
-    $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
+    $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
+    $('#id').val("");
+    $('#first_name').val("");//textbox id first_name เป็นค่าว่าง
+    $('#last_name').val("");//textbox id last_name เป็นค่าว่าง
+    $('#user_email').val("");//textbox id user_email เป็นค่าว่าง
+    $('#user_address').val("");
+    $('#user_phone').val("");
+    $('#level_id').val("");
+    $('#user_status').val("");
+    $('#user_password').val("");
   });
   //ถ้ามีถ้ามีการกดปุ่มแก้ไข
   $('#edit').click(function(){
     $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
-  });
-  //Insert
-  $('#insert-form').on('submit',function(e){ //อ้างอิงถึง id ที่ชื่อ insert-form mี่อยู่ใน insertModal และเมื่อมีการกด submit ให้ทำ? /*ดูบรรทัดถัดไป*/
-    e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
-    $.ajax({ //เรียกใช้ ajax
-      url:"crud-users/insert.php", //ส่งข้อมูลไปที่ insert.php
-      method:"post", //ด้วย method post
-      data:$('#insert-form').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
-      beforeSend:function(){ //ก่อนที่จะส่งข้อมูล
-        $('#insert').val("Save...");//ให้ทำการเปลี่ยนข้อความบนปุ่มเป็น Insert...
-      },
-      success:function(data){// หากส้งข้อมูลสำเร็จ
-        console.log(data);
-        $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
-        $('#addModal').modal('hide');//ปิด Modal
-        location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
-      }
-    });
-  });
-  //update
-  $('.update_data').click(function(){//เมื่อมีการกดปุ่ม view_data
-    var uid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
-    $.ajax({
-      url:"crud-users/fetch.php",
-      method:"post",
-      data:{user_id:uid},
-      dataType:"json",
-      success:function(data){
-        $('#id').val(data.user_id);//เปลี่ยนข้อมูลใน insertModal เป็นค่าที่อยู่ใน data.user_id
-        $('#first_name').val(data.first_name);
-        $('#last_name').val(data.last_name);
-        $('#user_email').val(data.user_email);
-        $('#user_password').val(data.user_password);
-        $('#user_address').val(data.user_address);
-        $('#user_phone').val(data.user_phone);
-        $('#level_id').val(data.level_id);
-        $('#user_status').val(data.user_status);
-        $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
-        $('#addModal').modal('show');
-      }
-    });
   });
 //delete
   $('.delete_data').click(function(){//ตรวจสอบคลาส delete_data เมื่อมีการกดปุ่ม
@@ -201,14 +179,14 @@ $(document).ready(function(){
         }).then((result) => {
             if (result.value) {//เช็กค่าว่าเป็น T|F
                 console.log(result.value);//ปริ้นค้าออกทาง console log
-                $.ajax({  url:"crud-users/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
+                $.ajax({  url:"crud-rooms/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
                           method:"post", //ด้วย method post
-                          data:{user_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
+                          data:{room_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
                           success:function(data){ // หากส่งข้อมูลสำเร็จ
                             console.log(data);
                             swal(
-                              'Deleted!',
-                              'Your user has been deleted.',
+                              'ลบเรียบร้อยแล้ว!',
+                              'ห้องนี้ได้ถูกลบแล้ว.',
                               'success'
                             ).then((result)=>{
                               if (result.value) {
@@ -224,9 +202,9 @@ $(document).ready(function(){
   $('.view_data').click(function(){//เมื่อมีการกดปุ่ม view_data
     var uid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
     $.ajax({
-      url:"crud-users/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
+      url:"crud-rooms/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
       method:"post", //ด้วย method post
-      data:{user_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
+      data:{room_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
       success:function(data){ // หากส้งข้อมูลสำเร็จ
         $('#detail').html(data);//นำข้อมูลไปแสดงที่ Modal body ตรง id detail ในไฟล์ viewModal.php
         $('#dataModal').modal('show');//เรียก Modal มาแสดง

@@ -4,7 +4,7 @@
 	date_default_timezone_set("Asia/Bangkok");
 
 	include('constant.php');
-	//require_once('php-class-upload/class.upload.php') ;// Include คลาส class.upload.php เข้ามา เพื่อจัดการรูปภาพ
+	require_once('php-class-upload/class.upload.php') ;// Include คลาส class.upload.php เข้ามา เพื่อจัดการรูปภาพ
 
 	$conn = '';
 	//CONNECTION
