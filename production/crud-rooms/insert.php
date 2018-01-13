@@ -1,22 +1,28 @@
 <?php
 require '../../public/function.php';
-
-$room_id = $_POST['room_id'];//echo $room_id;
+$conn = PDOConnector();//ติดต่อฐานข้อมูล
+$room_status = "";
+$room_id = isset($_POST['room_id']);//echo $room_id;
 $room_name = $_POST['room_name'];
 $room_detial = $_POST['room_detial'];
 $room_category = $_POST['room_category'];
-$room_status = $_POST['room_status'];
-$room_status = 1;
-$conn = PDOConnector();//ติดต่อฐานข้อมูล
+if ($_POST['room_status']) {
+  $room_status = 1;
+  echo "room status = ".$room_status;
+}else {
+  $room_status = 0;
+  echo "room status = ".$room_status;
+}
 //ตรวจสอบไฟลที่จะอัพโหลด์
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $room_image = $_FILES['room_image']['name'];
-    //$fileExt = pathinfo($_FILES["inputFile"]["name"], PATHINFO_EXTENSION);
     $filePath = "../images/room-img/".$room_image;
     if (move_uploaded_file($_FILES["room_image"]["tmp_name"], $filePath)) {
         echo "Upload success";
+        echo "ไฟล์ชือ = ".$room_image;
     } else {
         echo "Upload failed";
+        echo "ไฟล์ชือ = ".$room_image;
     }
 }
 

@@ -51,7 +51,7 @@
             <label class="control-label" for="textarea">
               <span class="required fa fa-home"> *</span> เปิด/ปิดใช้งานห้อง
             </label>
-             <input type="checkbox" class="js-switch" name="room_status" id="room_status" /> ปิด | เปิด
+             <input type="checkbox" class="js-switch js-check-change" name="room_status" id="room_status" /> ปิด | เปิด
           </div>
 
       </div><!--modal body-->

@@ -151,25 +151,44 @@ $(document).ready(function(){
   //ถ้ามีการกดปุ่ม เพิ่มสมาชิก ให้ทำการเซ็ตค่าใน textbox เป็นค่าว่าง
   $('#add').click(function(){
     $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
-    $('#id').val("");
-    $('#first_name').val("");//textbox id first_name เป็นค่าว่าง
-    $('#last_name').val("");//textbox id last_name เป็นค่าว่าง
-    $('#user_email').val("");//textbox id user_email เป็นค่าว่าง
-    $('#user_address').val("");
-    $('#user_phone').val("");
-    $('#level_id').val("");
-    $('#user_status').val("");
-    $('#user_password').val("");
+    $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
   });
   //ถ้ามีถ้ามีการกดปุ่มแก้ไข
   $('#edit').click(function(){
     $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
   });
+
+  // var changeCheckbox = document.querySelector('.js-check-change');
+  // changeCheckbox.onchange = function() {
+  //   alert(changeCheckbox.checked);
+  // };
+  
+  //Insert
+  $('#insert-form').on('submit',function(e){ //อ้างอิงถึง id ที่ชื่อ insert-form mี่อยู่ใน insertModal และเมื่อมีการกด submit ให้ทำ? /*ดูบรรทัดถัดไป*/
+    e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
+    var formData = new FormData($(this)[0]);
+    $.ajax({ //เรียกใช้ ajax
+      url:"crud-rooms/insert.php", //ส่งข้อมูลไปที่ insert.php
+      method:"post", //ด้วย method post
+      //data:$('#insert-form').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
+      data:formData,
+      processData: false, //Not to process data
+      contentType: false, //Not to set contentType
+      beforeSend:function(){ //ก่อนที่จะส่งข้อมูล
+        $('#insert').val("Save...");//ให้ทำการเปลี่ยนข้อความบนปุ่มเป็น Insert...
+      },
+      success:function(data){// หากส้งข้อมูลสำเร็จ
+        $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
+        $('#addModal').modal('hide');//ปิด Modal
+        alert(data);
+        //location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
+      }
+    });
+  });
 //delete
   $('.delete_data').click(function(){//ตรวจสอบคลาส delete_data เมื่อมีการกดปุ่ม
     var uid=$(this).attr("id");//รับค่า id จากปุ่มdeleteมาใส่ไว้ใน uid
-    //var status=confirm("Are you want delete ?");
-    swal({title: 'แน่ใจแล้วหรือ?',
+        swal({title: 'แน่ใจแล้วหรือ?',
         text: "คุณต้องการลบข้อมูลนี้ใช่หรือไม่!",
         type: 'warning',
         showCancelButton: true,
