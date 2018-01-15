@@ -7,25 +7,29 @@ try {
   $sql = "SELECT * FROM users WHERE user_id=$id";
   $query = $conn->prepare($sql);
   $query ->execute();
-} catch (\Exception $e) {
+} catch (\Exception $e){
   echo "ไม่สามารถดึงข้อมูลได้: " .$e->getMessage();
 }
 
 $opt.='<div class="table-responsive">
 <table class="table table-bordered">';
 while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
-  //ตรวจสอบระดับของผู้ใช้งาน
-  // 0 = ผู้ดูแลระบบ
-  // 1 = สมาชิกทั่วไป
+  //ตรวจสอบระดับของผู้ใช้งาน // 0 = ผู้ดูแลระบบ // 1 = สมาชิกทั่วไป
   if($row->level_id==0){ //ถ้า level_id ที่ได้มาจากฐานข้อมูลมีค่าเท่ากับ 0
-      $level = "ผู้ดูแลระบบ"; //กำหนดให้ตัวแปล $level = ผู้ดูแลระบบ
+    $level = "ผู้ดูแลระบบ"; //กำหนดให้ตัวแปล $level = ผู้ดูแลระบบ
   }else{//ถ้าไม่เท่ากับ 0
-        $level = "สมาชิกทั่วไป";} //กำหนดให้ตัวแปล $level = สมาชิกทั่วไป
+    $level = "สมาชิกทั่วไป";} //กำหนดให้ตัวแปล $level = สมาชิกทั่วไป
   //ตรวจสอบสถานะการใช้งานว่าอนุญาตให้ผู้ใช้คนนี้ใช้งานระบอยู่หรือไม่ ?
-  if ($row->user_status==0) {
+  if($row->user_status==0){
     $status = "ปิดกั้น";
   }else {
     $status = "เปิดใช้";
+  }
+  //ตรวจสอบเพศ //M=ชาย // F=หญิง
+  if ($row->user_sex=="M") {
+    $gender = "ชาย";
+  }else {
+    $gender = "หญิง";
   }
       $opt.='<tr>
               <td><lable><b>ID</b></lable></td>
@@ -45,7 +49,7 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
              <tr>';
       $opt.='<tr>
               <td><lable><b>เพศ</b></lable></td>
-              <td>'.$row->user_sex.'</td>
+              <td>'.$gender.'</td>
              <tr>';
       $opt.='<tr>
               <td><lable><b>วันที่ลงทะเบียน</b></lable></td>
