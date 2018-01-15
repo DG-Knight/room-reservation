@@ -43,8 +43,8 @@
             <label class="control-label"><span class="from-control fa fa-venus-double"> *</span>เพศ</label>
               <div>
                 M:
-                <input type="radio" class="flat" name="gender" id="genderM" value="ชาย" checked="" required /> F:
-                <input type="radio" class="flat" name="gender" id="genderF" value="หญิง" />
+                <input type="radio" class="flat" name="gender" id="genderM" value="M"/> F:
+                <input type="radio" class="flat" name="gender" id="genderF" value="F"/>
               </div>
           </div>
           <div class="item form-group">

@@ -18,9 +18,7 @@ try {
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-
-     <title>R-Reservation | </title>
-
+     <title>Users|Management</title>
      <!-- Bootstrap -->
      <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
      <!-- Font Awesome -->
@@ -35,8 +33,6 @@ try {
      <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
      <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
      <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-     <!-- Switchery -->
-     <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
      <!-- Custom Theme Style -->
      <link href="../build/css/custom.min.css" rel="stylesheet">
      <!-- sweetalert2 -->
@@ -67,9 +63,10 @@ try {
     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th witth="5">#</th>
+          <th witth="5%">#</th>
           <th width="27.5%">ชื่อ</th>
           <th width="27.5%">นามสกุล</th>
+          <th>สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
           <th width="10%">ลบ</th>
@@ -85,6 +82,14 @@ try {
           <th><?=$i++;?></th>
           <th><?=$data->first_name;?></th>
           <th><?=$data->last_name;?></th>
+          <th>
+            <center>
+              <?php if ($data->user_status==0) { ?>
+              <label  class="label label-danger" >ปิดใช้งาน</label>
+              <?php }else { ?>
+              <label class="label label-success"> เปิดใช้งาน </label>
+              <?php } ?>
+            </center>
           <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->user_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
           <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></th>
           <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->user_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
@@ -129,9 +134,6 @@ try {
 <script src="../vendors/jszip/dist/jszip.min.js"></script>
 <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-<!-- Switchery -->
-<script src="../vendors/switchery/dist/switchery.min.js"></script>
-
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 </body>
@@ -141,6 +143,8 @@ $(document).ready(function(){
   //ถ้ามีการกดปุ่ม เพิ่มสมาชิก
   $('#add').click(function(){
     $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
+    $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
+    $('#insert').val("Save");//เปลี่ยนข้อความปุ่มที่มีไอดีชื่อ insert เป็น Save
   });
   //ถ้ามีถ้ามีการกดปุ่มแก้ไข
   $('#edit').click(function(){
@@ -182,6 +186,13 @@ $(document).ready(function(){
         $('#user_phone').val(data.user_phone);
         $('#level_id').val(data.level_id);
         $('#user_status').val(data.user_status);
+        if (data.user_sex=="M") {
+          console.log("เป็นเพศชายครับ");
+          $("#genderM").prop("checked", true);
+        }else {
+          console.log("เป็นเพศหญิงค่ะ");
+          $("#genderF").prop("checked", true);
+        }
         $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
         $('#addModal').modal('show');
       }
@@ -207,8 +218,8 @@ $(document).ready(function(){
                           success:function(data){ // หากส่งข้อมูลสำเร็จ
                             console.log(data);
                             swal(
-                              'Deleted!',
-                              'Your user has been deleted.',
+                              'ลบเรียบร้อยแล้ว!',
+                              'คุณได้ลบข้อมูลนี้แล้ว.',
                               'success'
                             ).then((result)=>{
                               if (result.value) {
