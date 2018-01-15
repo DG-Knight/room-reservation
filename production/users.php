@@ -91,7 +91,7 @@ try {
               <?php } ?>
             </center>
           <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->user_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
-          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></th>
+          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear"> แก้ไข</i></button></center></th>
           <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->user_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
         </tr>
         <?php }} ?>
@@ -134,6 +134,8 @@ try {
 <script src="../vendors/jszip/dist/jszip.min.js"></script>
 <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+<!-- jquery.inputmask ใส่ขีดและเว้นวรรคเบอร์โทรให้อัตโนมัติ-->
+<script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 </body>
@@ -146,10 +148,6 @@ $(document).ready(function(){
     $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
     $('#insert').val("Save");//เปลี่ยนข้อความปุ่มที่มีไอดีชื่อ insert เป็น Save
   });
-  //ถ้ามีถ้ามีการกดปุ่มแก้ไข
-  $('#edit').click(function(){
-    $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
-  });
   //Insert
   $('#insert-form').on('submit',function(e){ //อ้างอิงถึง id ที่ชื่อ insert-form mี่อยู่ใน insertModal และเมื่อมีการกด submit ให้ทำ? /*ดูบรรทัดถัดไป*/
     e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
@@ -158,10 +156,10 @@ $(document).ready(function(){
       method:"post", //ด้วย method post
       data:$('#insert-form').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
       beforeSend:function(){ //ก่อนที่จะส่งข้อมูล
-        $('#insert').val("Save...");//ให้ทำการเปลี่ยนข้อความบนปุ่มเป็น Insert...
+        $('#insert').val("Save...");//ให้ทำการเปลี่ยนข้อความบนปุ่มที่มีไอดี insert เป็น Save...
       },
-      success:function(data){// หากส้งข้อมูลสำเร็จ
-        console.log(data);
+      success:function(data){// หากสงข้อมูลสำเร็จ
+        console.log(data);//แสดงข้อมูลออกมาทาง console log
         $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
         $('#addModal').modal('hide');//ปิด Modal
         location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
@@ -177,7 +175,7 @@ $(document).ready(function(){
       data:{user_id:uid},
       dataType:"json",
       success:function(data){
-        $('#id').val(data.user_id);//เปลี่ยนข้อมูลใน insertModal เป็นค่าที่อยู่ใน data.user_id
+        $('#id').val(data.user_id);//เปลี่ยนข้อมูลใน insertModal.php ที่ id เป็นค่าที่อยู่ใน data.user_id
         $('#first_name').val(data.first_name);
         $('#last_name').val(data.last_name);
         $('#user_email').val(data.user_email);
@@ -193,6 +191,7 @@ $(document).ready(function(){
           console.log("เป็นเพศหญิงค่ะ");
           $("#genderF").prop("checked", true);
         }
+        $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
         $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
         $('#addModal').modal('show');
       }

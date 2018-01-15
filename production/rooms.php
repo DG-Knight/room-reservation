@@ -18,9 +18,7 @@ try {
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-
-     <title>Rooms | </title>
-
+     <title>Rooms|Management </title>
      <!-- Bootstrap -->
      <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
      <!-- Font Awesome -->
@@ -35,14 +33,11 @@ try {
      <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
      <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
      <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-     <!-- Switchery -->
-     <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
      <!-- Custom Theme Style -->
      <link href="../build/css/custom.min.css" rel="stylesheet">
      <!-- sweetalert2 -->
      <link rel="stylesheet" href="../vendors/sweetalert2/dist/sweetalert2.min.css">
    </head>
-
    <body class="nav-md footer_fixed" >
      <div class="container body">
        <div class="main_container">
@@ -67,10 +62,10 @@ try {
     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>#</th>
+          <th width="5%">#</th>
           <th>ชื่อ</th>
           <th>รูปภาพ</th>
-          <th>สถานะ</th>
+          <th width="10%">สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
           <th width="10%">ลบ</th>
@@ -139,9 +134,6 @@ try {
 <script src="../vendors/jszip/dist/jszip.min.js"></script>
 <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-<!-- Switchery -->
-<script src="../vendors/switchery/dist/switchery.min.js"></script>
-
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 </body>
@@ -150,19 +142,14 @@ try {
 $(document).ready(function(){
   //ถ้ามีการกดปุ่ม เพิ่มสมาชิก ให้ทำการเซ็ตค่าใน textbox เป็นค่าว่าง
   $('#add').click(function(){
-    $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
     $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
+    $('#title').html("เพิ่มข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น เพิ่มข้อมูล
+    $('#insert').val("Save");
   });
   //ถ้ามีถ้ามีการกดปุ่มแก้ไข
   $('#edit').click(function(){
     $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
   });
-
-  // var changeCheckbox = document.querySelector('.js-check-change');
-  // changeCheckbox.onchange = function() {
-  //   alert(changeCheckbox.checked);
-  // };
-  
   //Insert
   $('#insert-form').on('submit',function(e){ //อ้างอิงถึง id ที่ชื่อ insert-form mี่อยู่ใน insertModal และเมื่อมีการกด submit ให้ทำ? /*ดูบรรทัดถัดไป*/
     e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
@@ -180,8 +167,29 @@ $(document).ready(function(){
       success:function(data){// หากส้งข้อมูลสำเร็จ
         $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
         $('#addModal').modal('hide');//ปิด Modal
-        alert(data);
-        //location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
+        //alert(data);
+        location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
+      }
+    });
+  });
+  //update
+  $('.update_data').click(function(){//เมื่อมีการกดปุ่ม view_data
+    var uid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
+    $.ajax({
+      url:"crud-rooms/fetch.php",
+      method:"post",
+      data:{room_id:uid},
+      dataType:"json",
+      success:function(data){
+        console.log(data);
+        $('#id').val(data.room_id);//เปลี่ยนข้อมูลใน insertModal เป็นค่าที่อยู่ใน data.user_id
+        $('#room_name').val(data.room_name);
+        $('#room_detial').val(data.room_detial);
+        //$('#room_image').val(data.room_image);
+        $('#room_category').val(data.room_category);
+        $('#room_status').val(data.room_status);
+        $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
+        $('#addModal').modal('show');
       }
     });
   });

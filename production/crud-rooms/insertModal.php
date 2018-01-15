@@ -13,7 +13,8 @@
             <label class="control-label">
               <span class="required fa fa-home"> *</span>ชื่อห้อง
             </label>
-            <div class="">
+            <div>
+              <input type="hidden" id="id" name="room_id" />
               <input type="text" class="form-control" id="room_name" name="room_name" placeholder="ชื่อห้อง"/>
             </div>
           </div>
@@ -41,17 +42,23 @@
           </div>
 
           <div class="item form-group">
-            <label class="control-label" for="exampleInputFile">
+            <label class="control-label">
               <i class="fa fa-upload"></i> เลือกภาพ
             </label>
             <input type="file" name="room_image" id="room_image" accept="image/*">
           </div>
 
           <div class="item form-group">
-            <label class="control-label" for="textarea">
+            <label class="control-label">
               <span class="required fa fa-home"> *</span> เปิด/ปิดใช้งานห้อง
             </label>
-             <input type="checkbox" class="js-switch js-check-change" name="room_status" id="room_status" /> ปิด | เปิด
+            <div>
+              <select class="form-control" name="room_status" id="room_status">
+                <option>---เลือก---</option>
+                <option id="room_status" value="1">เปิด</option>
+                <option id="room_status" value="0">ปิด</option>
+              </select>
+            </div>
           </div>
 
       </div><!--modal body-->

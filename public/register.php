@@ -19,7 +19,6 @@ if (isset($_POST['submit'])) {
   if ($user_password == $user_password2) {
     $result = Register($first_name,$last_name,$user_sex,$user_address,$user_phone,$user_email,$user_password);
     if($result){
-      $alert_types = 1;
       echo "<script>alert('คุณได้สมัครสมาชิกเรียบรอยแล้ว กรุณาเข้าสุ่ระบบ');window.location = '../index.php';</script>";
     }
   }else {
@@ -112,8 +111,8 @@ if (isset($_POST['submit'])) {
             <label class="control-label"><span class="from-control fa fa-venus-double"> *</span>เพศ</label>
               <div>
                 M:
-                <input type="radio" class="flat" name="gender" id="genderM" value="ชาย" checked="" required /> F:
-                <input type="radio" class="flat" name="gender" id="genderF" value="หญิง" />
+                <input type="radio" class="flat" name="gender" id="genderM" value="M" /> F:
+                <input type="radio" class="flat" name="gender" id="genderF" value="F" />
               </div>
           </div>
           <div class="item form-group">

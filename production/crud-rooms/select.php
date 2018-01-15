@@ -19,6 +19,11 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
   }else{
     $status = "เปิดใช้งาน";
   }
+  if ($row->room_category==1) {
+    $category = "ห้องประชุม";
+  }else {
+    $category = "ห้องเรียน";
+  }
       $opt.='<tr>
               <td><lable><b>ID</b></lable></td>
               <td>'.$row->room_id.'</td>
@@ -33,7 +38,7 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
              <tr>';
       $opt.='<tr>
               <td><lable><b>ประเภทห้อง</b></lable></td>
-              <td>'.$row->room_category.'</td>
+              <td>'.$category.'</td>
              <tr>';
       $opt.='<tr>
               <td><lable><b>สถานะ</b></lable></td>
