@@ -111,4 +111,11 @@
 		return $result;
     $conn = '';
 	}
+	function DeleteRoom($id){
+		$conn = PDOConnector();
+		$sql = "DELETE FROM rooms WHERE room_id=$id";
+	  $query = $conn->prepare($sql);
+	  $result = $query ->execute();
+		return $result;
+	}
 ?>

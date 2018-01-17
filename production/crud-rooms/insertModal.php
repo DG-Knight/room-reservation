@@ -24,10 +24,10 @@
               <span class="required fa fa-home"> *</span>ประเภทห้อง
             </label>
             <div class="">
-              <select class="form-control" id="room_category" name="room_category"placeholder="เลือกประเภท">
+              <select class="form-control" id="category" name="category"placeholder="เลือกประเภท">
                 <option >--ประเภทห้อง--</option>
-                <option value="1">ห้องประชุม</option>
-                <option value="2">ห้องเรียน</option>
+                <option id="category" value="1">ห้องประชุม</option>
+                <option id="category" value="2">ห้องเรียน</option>
               </select>
             </div>
           </div>
@@ -36,8 +36,8 @@
             <label class="control-label" for="textarea">
               <span class="required fa fa-home"> *</span>คำอธิบาย
             </label>
-            <div class="">
-              <textarea id="room_detial"  name="room_detial" placeholder="Ex.เป็นห้องที่ใช้สำหรับจัดประชุมรองรับคนได้ 100 ที่นั่ง" class="form-control resizable_textarea col-md-7 col-xs-12"></textarea>
+            <div>
+              <textarea id="room_detail"  name="room_detail" placeholder="Ex.เป็นห้องที่ใช้สำหรับจัดประชุมรองรับคนได้ 100 ที่นั่ง" class="form-control resizable_textarea col-md-7 col-xs-12"></textarea>
             </div>
           </div>
 

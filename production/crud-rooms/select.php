@@ -4,7 +4,7 @@ include '../../public/function.php';
 $opt = '';
 try {
   $conn = PDOConnector();
-  $sql = "SELECT * FROM rooms WHERE room_id=$id";
+  $sql = "SELECT * FROM rooms  INNER JOIN room_category ON rooms.category=room_category.room_category_id WHERE room_id=$id";
   $query = $conn->prepare($sql);
   $query ->execute();
 } catch (\Exception $e) {
@@ -19,11 +19,7 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
   }else{
     $status = "เปิดใช้งาน";
   }
-  if ($row->room_category==1) {
-    $category = "ห้องประชุม";
-  }else {
-    $category = "ห้องเรียน";
-  }
+
       $opt.='<tr>
               <td><lable><b>ID</b></lable></td>
               <td>'.$row->room_id.'</td>
@@ -34,11 +30,11 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
             </tr>';
       $opt.='<tr>
               <td><lable><b>รายละเอียดห้อง</b></lable></td>
-              <td>'.$row->room_detial.'</td>
+              <td>'.$row->room_detail.'</td>
              <tr>';
       $opt.='<tr>
               <td><lable><b>ประเภทห้อง</b></lable></td>
-              <td>'.$category.'</td>
+              <td>'.$row->room_category_name.'</td>
              <tr>';
       $opt.='<tr>
               <td><lable><b>สถานะ</b></lable></td>
@@ -46,7 +42,7 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
             <tr>';
       $opt.='<tr>
               <td><lable><b>รูปภาพ</b></lable></td>
-              <td>'.$row->room_image.'</td>
+              <td><center><img width="300" src="images/room-img/'.$row->room_image.'"></center></td>
             <tr>';
 }
     $opt.='</table></div>';

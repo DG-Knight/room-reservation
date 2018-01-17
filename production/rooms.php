@@ -3,7 +3,8 @@ include '../public/function.php';
 CheckAuthenticationAndAuthorization();
 try {
   $conn = PDOConnector();
-  $sql = "SELECT * FROM rooms";
+  //$sql = "SELECT * FROM rooms";
+  $sql  = 'SELECT * FROM rooms inner join room_category on rooms.category=room_category.room_category_id';
   $query = $conn->prepare($sql);
   $query ->execute();
 } catch (\Exception $e) {
@@ -64,7 +65,7 @@ try {
         <tr>
           <th width="5%">#</th>
           <th>ชื่อ</th>
-          <th>รูปภาพ</th>
+          <!-- <th>รูปภาพ</th> -->
           <th width="10%">สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
@@ -79,8 +80,14 @@ try {
         ?>
         <tr>
           <th><?=$i++;?></th>
-          <th><?=$data->room_name;?></th>
-          <th><?=$data->room_image;?></th>
+          <th><center><?=$data->room_name;?></center></th>
+          <!-- <th>
+              <div class="items"id="panelPrecios">
+                <a data-toggle="tooltip" data-placement="top" title="<img width='200' src='images/room-img/<?//=$data->room_image;?>'>">
+                  <?//=$data->room_image;?>
+                </a>
+              </div>
+          </th> -->
           <th>
             <center>
               <?php if ($data->room_status==0) { ?>
@@ -110,6 +117,7 @@ try {
 </div>
 <!-- jQuery -->
 <script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script> -->
 <!-- Bootstrap -->
 <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -138,6 +146,7 @@ try {
 <script src="../build/js/custom.min.js"></script>
 </body>
 <script src="../vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+<script  src="../vendors/image-tooltip/js/index.js"></script>
 <script>
 $(document).ready(function(){
   //ถ้ามีการกดปุ่ม เพิ่มสมาชิก ให้ทำการเซ็ตค่าใน textbox เป็นค่าว่าง
@@ -184,9 +193,9 @@ $(document).ready(function(){
         console.log(data);
         $('#id').val(data.room_id);//เปลี่ยนข้อมูลใน insertModal เป็นค่าที่อยู่ใน data.user_id
         $('#room_name').val(data.room_name);
-        $('#room_detial').val(data.room_detial);
+        $('#room_detail').val(data.room_detail);
         //$('#room_image').val(data.room_image);
-        $('#room_category').val(data.room_category);
+        $('#category').val(data.category);
         $('#room_status').val(data.room_status);
         $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
         $('#addModal').modal('show');

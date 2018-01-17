@@ -4,8 +4,8 @@ $conn = PDOConnector();//ติดต่อฐานข้อมูล
 $room_status = $_POST['room_status'];
 $room_id = $_POST['room_id'];//echo $room_id;
 $room_name = $_POST['room_name'];
-$room_detial = $_POST['room_detial'];
-$room_category = $_POST['room_category'];
+$room_detail = $_POST['room_detail'];
+$category = $_POST['category'];
 
 //ตรวจสอบไฟลที่จะอัพโหลด์
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -23,24 +23,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if ($room_id!='') {
   echo "UPDATE";
   //Update
-    echo "room status on update = ".$room_status;
-  $query = $conn->prepare('UPDATE rooms SET room_name = :room_name, room_detial = :room_detial, room_image = :room_image, room_category = :room_category, room_status = :room_status WHERE room_id = :room_id');
+  echo "room status on update = ".$room_status;
+  $query = $conn->prepare('UPDATE rooms SET room_name = :room_name, room_detail = :room_detail, room_image = :room_image, category = :category, room_status = :room_status WHERE room_id = :room_id');
   $result = $query->execute([
     'room_name' => $room_name,
-    'room_detial' => $room_detial,
+    'room_detail' => $room_detail,
     'room_image' => $room_image,
-    'room_category' => $room_category,
+    'category' => $category,
     'room_status' => $room_status,
     'room_id' => $room_id
   ]);
 }else {
   echo "INSERT";
-  $query = $conn->prepare('INSERT INTO rooms(room_name, room_detial, room_image, room_category, room_status) VALUES(:room_name, :room_detial, :room_image, :room_category, :room_status)');
+  $query = $conn->prepare('INSERT INTO rooms(room_name, room_detail, room_image, category, room_status) VALUES(:room_name, :room_detail, :room_image, :category, :room_status)');
   $result = $query->execute(array(
     'room_name' => $room_name,
-    'room_detial' => $room_detial,
+    'room_detail' => $room_detail,
     'room_image' => $room_image,
-    'room_category' => $room_category,
+    'category' => $category,
     'room_status' => $room_status
       ));
 }
