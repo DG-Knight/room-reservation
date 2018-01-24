@@ -25,16 +25,19 @@
       <div class="menu_section">
         <h3>เมนู</h3>
         <ul class="nav side-menu">
-          <li><a href="index.php"><i class="fa fa-calendar"></i> หน้าหลัก </a>
-          <li><a><i class="fa fa-home"></i> ข้อมูลห้อง <span class="fa fa-chevron-down"></span></a>
+          <li><a href="index.php"><i class="fa fa-home"></i> หน้าหลัก </a>
+          <li><a href="calendar.php"><i class="fa fa-calendar"></i> ปฏิทินการใช้ห้อง </a>
+          <li><a><i class="fa fa-edit"></i> ข้อมูลห้อง <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="index.php?file=booking"> จองห้อง </a></li>
+              <li><a href="booking.php"> จองห้อง </a></li>
+              <li><a href="index.php?file=b-history"> สอบถามการจอง </a></li>
               <li><a href="index.php?file=b-history"> ประวัติการจอง </a></li>
             </ul>
           </li>
           <li><a><i class="fa fa-edit"></i> ข้อมูลอุปกรณ์ <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="index.php?file=borrow"> ยืมอุปกรณ์ </a></li>
+              <li><a href="index.php?file=b-history"> สอบถามการยืม </a></li>
               <li><a href="index.php?file=br-history"> ประวัติการยืม/คืนอุปกรณ์ </a></li>
             </ul>
           </li>
@@ -49,7 +52,7 @@
             <ul class="nav child_menu">
               <li><a href="users.php">จัดการสมาชิก</a></li>
               <li><a href="rooms.php">จัดการห้อง</a></li>
-              <li><a href="index.php?file=devices">จัดการอุปกรณ์</a></li>
+              <li><a href="devices.php">จัดการอุปกรณ์</a></li>
               <li><a href="index.php?file=active-booking">อนุมัติการจองห้อง</a></li>
               <li><a href="index.php?file=active-borrow">อนุมัติการยืมอุปกรณ์</a></li>
               <li><a href="inex.php?file=return-devices"> คืนอุปกรณ์ </a></li>

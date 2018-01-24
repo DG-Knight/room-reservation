@@ -62,6 +62,7 @@ try {
   <div class="table-responsive">
     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
+        <!-- <tr BGCOLOR = "#2ecc71" style="color:#ffffff"> -->
         <tr>
           <th width="5%">#</th>
           <th>ชื่อ</th>
@@ -79,8 +80,8 @@ try {
           while ($data = $query -> fetch(PDO::FETCH_OBJ)) {
         ?>
         <tr>
-          <th><?=$i++;?></th>
-          <th><center><?=$data->room_name;?></center></th>
+          <td><?=$i++;?></td>
+          <td><center><?=$data->room_name;?></center></td>
           <!-- <th>
               <div class="items"id="panelPrecios">
                 <a data-toggle="tooltip" data-placement="top" title="<img width='200' src='images/room-img/<?//=$data->room_image;?>'>">
@@ -88,7 +89,7 @@ try {
                 </a>
               </div>
           </th> -->
-          <th>
+          <td>
             <center>
               <?php if ($data->room_status==0) { ?>
               <label  class="label label-danger" >ปิดใช้งาน</label>
@@ -96,10 +97,10 @@ try {
               <label class="label label-success"> เปิดใช้งาน </label>
               <?php } ?>
             </center>
-          </th>
-          <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->room_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
-          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->room_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></th>
-          <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->room_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
+          </td>
+          <td><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->room_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></td>
+          <td><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->room_id;?>"><i class="fa fa-gear " id="edit"> แก้ไข</i></button></center></td>
+          <td><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->room_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></td>
         </tr>
         <?php }} ?>
       </tbody>

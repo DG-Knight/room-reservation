@@ -3,7 +3,8 @@ include '../public/function.php';
 CheckAuthenticationAndAuthorization();
 try {
   $conn = PDOConnector();
-  $sql = "SELECT * FROM users";
+  //$sql = "SELECT * FROM users";
+  $sql  = 'SELECT * FROM users inner join level_user on users.level_id=level_user.level_id';
   $query = $conn->prepare($sql);
   $query ->execute();
 } catch (\Exception $e) {
@@ -62,10 +63,12 @@ try {
   <div class="table-responsive">
     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
+        <!-- <tr BGCOLOR = "#2ecc71" style="color:#ffffff"> -->
         <tr>
           <th witth="5%">#</th>
           <th width="27.5%">ชื่อ</th>
           <th width="27.5%">นามสกุล</th>
+          <th>ประเภท</th>
           <th>สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
@@ -79,10 +82,11 @@ try {
           while ($data = $query -> fetch(PDO::FETCH_OBJ)) {
         ?>
         <tr>
-          <th><?=$i++;?></th>
-          <th><?=$data->first_name;?></th>
-          <th><?=$data->last_name;?></th>
-          <th>
+          <td><?=$i++;?></td>
+          <td><?=$data->first_name;?></td>
+          <td><?=$data->last_name;?></td>
+          <td><span class="label label-default"><?=$data->level_name;?></span></td>
+          <td>
             <center>
               <?php if ($data->user_status==0) { ?>
               <label  class="label label-danger" >ปิดใช้งาน</label>
@@ -90,9 +94,10 @@ try {
               <label class="label label-success"> เปิดใช้งาน </label>
               <?php } ?>
             </center>
-          <th><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->user_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></th>
-          <th><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear"> แก้ไข</i></button></center></th>
-          <th><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->user_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></th>
+          </td>
+          <td><center><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->user_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></center></td>
+          <td><center><button type="button" name="edit" class="btn btn-success update_data" id="<?=$data->user_id;?>"><i class="fa fa-gear"> แก้ไข</i></button></center></td>
+          <td><center><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->user_id;?>"><i class="fa fa-trash"> ลบ</i></button></center></td>
         </tr>
         <?php }} ?>
       </tbody>
