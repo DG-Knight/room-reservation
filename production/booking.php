@@ -1,6 +1,15 @@
 <?php
 include '../public/function.php';
 CheckAuthenticationAndAuthorization();
+  $conn = PDOConnector();
+  // $sqlb = 'SELECT * FROM booking inner join rooms on booking.room_id=rooms.room_id';
+  // $query = $conn->prepare($sql);
+  // $query ->execute();
+  $sqlr = 'SELECT * FROM rooms';
+  $query = $conn->prepare($sqlr);
+  $query ->execute();
+
+
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -258,95 +267,46 @@ CheckAuthenticationAndAuthorization();
                            <th style="width: 1%">#</th>
                            <th>ภาพ</th>
                            <th style="width: 20%">ชื่อห้อง</th>
-                           <th>Project Progress</th>
+                           <th>รายละเอียด</th>
                            <th>สถานะ</th>
                            <th style="width: 20%"><center>#</center></th>
                          </tr>
                        </thead>
                        <tbody>
+                         <?php
+                         if ($query->rowCount()>0) {
+                           $i = 1;
+                           while ($data = $query -> fetch(PDO::FETCH_OBJ)) {
+                         ?>
                          <tr>
-                           <td>#</td>
+                           <td><?=$i++ ?></td>
                            <td>
                              <a class="image view view-first">
-                               <img class="" src="images/picture.jpg" style="width:100px" alt="...">
+                               <?php $filename = 'images/room-img/'.$data->room_image;?>
+                               <img class="" src="<?php if (file_exists($filename)) {echo $filename;} else {echo "images/noimage.jpg";} ?>" style="width:100px" alt="...">
                              </a>
-
                            </td>
                            <td>
-                             <a>Pesamakini Backend UI</a>
+                             <a><?=$data->room_name ?></a>
                              <br />
                              <small>Created 01.01.2015</small>
                            </td>
 
                            <td class="project_progress">
-                             <div class="progress progress_sm">
+                             <?=$data->room_detail?>
+                             <!-- <div class="progress progress_sm">
                                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57"></div>
                              </div>
-                             <small>57% Complete</small>
+                             <small>57% Complete</small> -->
                            </td>
                            <td>
                              <input type="button" class="btn btn-success" value="ว่าง" />
                            </td>
                            <td>
-                             <center><a href="#" id="choose" class="btn btn-primary"><i class="fa fa-check"></i> จอง </a><center>
+                             <center><a href="#" id="<?=$data->room_id?>" class="btn btn-primary choose"><i class="fa fa-check"></i> จอง </a><center>
                            </td>
                          </tr>
-
-                         <tr>
-                           <td>#</td>
-                           <td>
-                             <a class="image view view-first">
-                               <img class="" src="images/picture.jpg" style="width:100px" alt="...">
-                             </a>
-
-                           </td>
-                           <td>
-                             <a>Pesamakini Backend UI</a>
-                             <br />
-                             <small>Created 01.01.2015</small>
-                           </td>
-
-                           <td class="project_progress">
-                             <div class="progress progress_sm">
-                               <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57"></div>
-                             </div>
-                             <small>57% Complete</small>
-                           </td>
-                           <td>
-                             <input type="button" class="btn btn-success" value="ว่าง" />
-                           </td>
-                           <td>
-                             <center><a href="#" id="choose" class="btn btn-primary"><i class="fa fa-check"></i> จอง </a><center>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td>#</td>
-                           <td>
-                             <a class="image view view-first">
-                               <img class="" src="images/picture.jpg" style="width:100px" alt="...">
-                             </a>
-
-                           </td>
-                           <td>
-                             <a>Pesamakini Backend UI</a>
-                             <br />
-                             <small>Created 01.01.2015</small>
-                           </td>
-
-                           <td class="project_progress">
-                             <div class="progress progress_sm">
-                               <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="57"></div>
-                             </div>
-                             <small>57% Complete</small>
-                           </td>
-                           <td>
-                             <input type="button" class="btn btn-success" value="ว่าง" />
-                           </td>
-                           <td>
-                             <center><a href="#" id="choose" class="btn btn-primary"><i class="fa fa-check"></i> จอง </a><center>
-                           </td>
-                         </tr>
-
+                       <?php }} ?>
                        </tbody>
                      </table>
                      </div>
@@ -360,7 +320,7 @@ CheckAuthenticationAndAuthorization();
            </div>
          </div>
          <!-- /page content -->
-
+         <?php include 'crud-Booking/insertModal.php'; ?>
          <!-- footer content -->
          <?php include_once 'footer.php'?>
          <!-- /footer content -->
@@ -389,10 +349,33 @@ CheckAuthenticationAndAuthorization();
 		       singleDatePicker:!0,
 		         singleClasses:"picker_2",
 		         locale: {
-                 format: 'YYYY-MM-DD'
+                 format: 'DD-MM-YYYY'
              }
-             });
+        });
+        $("#StopDate").daterangepicker({
+ 		       singleDatePicker:!0,
+ 		         singleClasses:"picker_2",
+ 		         locale: {
+                  format: 'DD-MM-YYYY'
+              }
+         });
+         $('.choose').click(function(){
+            var bid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
+            console.log(bid);
+           $.ajax({
+             url:"crud-booking/fetch.php", //ส่งข้อมูลไปทีไฟล์ select.php
+             method:"post", //ด้วย method post
+             data:{room_id:bid},//ส่งข้อมูลไปในรูปแบบ JSON
+             dataType:"json",
+             success:function(data){ // หากส้งข้อมูลสำเร็จ
+               console.log(data.room_name);
+              $('#room_id').val(data.room_id);
+              $('#room_name').val(data.room_name);
+              $('#chooseModal').modal('show');//เรียก Modal มาแสดง
+             }
            });
+         });
+      });
 
      </script>
    </body>
