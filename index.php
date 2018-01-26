@@ -3,7 +3,10 @@
 include 'public/function.php';
 $result = '';
 if (isset($_POST['submit'])) {
-  $result = Authentication($_POST['username'],$_POST['password']);
+  $user_password = $_POST['password'];
+  $password = md5($user_password);//ถอดรหัสpassword
+  $username = $_POST['username'];
+  $result = Authentication($username,$password);
   if($result){
     header('location: production/index.php');
     die();
