@@ -17,7 +17,8 @@ if (isset($_POST['submit'])) {
   $user_password2 = $_POST['user_password2'];
 
   if ($user_password == $user_password2) {
-    $result = Register($first_name,$last_name,$user_sex,$user_address,$user_phone,$user_email,$user_password);
+    $password = md5($user_password);
+    $result = Register($first_name,$last_name,$user_sex,$user_address,$user_phone,$user_email,$password);
     if($result){
       echo "<script>alert('คุณได้สมัครสมาชิกเรียบรอยแล้ว กรุณาเข้าสุ่ระบบ');window.location = '../index.php';</script>";
     }
