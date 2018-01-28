@@ -1,9 +1,10 @@
 <?php
-$id = $_POST['device_id'];
-include '../../public/function.php';
+$id = $_POST['room_id'];
+include '../../../public/function.php';
+
   try {
     $conn = PDOConnector();
-    $sql = "SELECT * FROM devices WHERE device_id=$id";
+    $sql = "SELECT * FROM rooms WHERE room_id=$id";
     $query = $conn->prepare($sql);
     $query ->execute();
   } catch (\Exception $e) {

@@ -1,7 +1,7 @@
 <?php
 $id = $_POST['room_id'];
 echo "ID= ".$id;
-include '../../public/function.php';
+include '../../../public/function.php';
 $conn = PDOConnector();//ติดต่อฐานข้อมูล
 $sql = "SELECT * FROM rooms WHERE room_id=$id"; //คำสั่ง sql เก็บไว้ในตัวแปร $sql
 $query = $conn->prepare($sql);//นำคำสั่ง sql ที่เก็บไว้ในตัวแปร $sql มาเข้าฟังก์ชัน prepare() เพื่อเตรียมคำสั่งตรวจเช็กความถูกต้องก่อนจะสั่งให้ทำงาน

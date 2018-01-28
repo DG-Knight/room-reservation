@@ -43,8 +43,8 @@ try {
    <body class="nav-md footer_fixed" >
      <div class="container body">
        <div class="main_container">
-         <?php include_once 'menu.php'?>
-         <?php include_once 'header.php'?>
+         <?php include_once 'layout/menu.php'?>
+         <?php include_once 'layout/header.php'?>
          <div class="right_col" role="main">
            <div class="row">
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -108,9 +108,9 @@ try {
 </div>
 </div>
 </div>
-<?php include "crud-users/viewModal.php";?>
-<?php include "crud-users/insertModal.php";?>
-<?php include_once 'footer.php'?>
+<?php include "user/crud-users/viewModal.php";?>
+<?php include "user/crud-users/insertModal.php";?>
+<?php include "layout/footer.php"?>
 </div>
 </div>
 <!-- jQuery -->
@@ -157,7 +157,7 @@ $(document).ready(function(){
   $('#insert-form').on('submit',function(e){ //อ้างอิงถึง id ที่ชื่อ insert-form mี่อยู่ใน insertModal และเมื่อมีการกด submit ให้ทำ? /*ดูบรรทัดถัดไป*/
     e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
     $.ajax({ //เรียกใช้ ajax
-      url:"crud-users/insert.php", //ส่งข้อมูลไปที่ insert.php
+      url:"user/crud-users/insert.php", //ส่งข้อมูลไปที่ insert.php
       method:"post", //ด้วย method post
       data:$('#insert-form').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
       beforeSend:function(){ //ก่อนที่จะส่งข้อมูล
@@ -175,7 +175,7 @@ $(document).ready(function(){
   $('.update_data').click(function(){//เมื่อมีการกดปุ่ม view_data
     var uid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
     $.ajax({
-      url:"crud-users/fetch.php",
+      url:"user/crud-users/fetch.php",
       method:"post",
       data:{user_id:uid},
       dataType:"json",
@@ -216,7 +216,7 @@ $(document).ready(function(){
         }).then((result) => {
             if (result.value) {//เช็กค่าว่าเป็น T|F
                 console.log(result.value);//ปริ้นค้าออกทาง console log
-                $.ajax({  url:"crud-users/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
+                $.ajax({  url:"user/crud-users/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
                           method:"post", //ด้วย method post
                           data:{user_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
                           success:function(data){ // หากส่งข้อมูลสำเร็จ
@@ -239,7 +239,7 @@ $(document).ready(function(){
   $('.view_data').click(function(){//เมื่อมีการกดปุ่ม view_data
     var uid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
     $.ajax({
-      url:"crud-users/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
+      url:"user/crud-users/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
       method:"post", //ด้วย method post
       data:{user_id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
       success:function(data){ // หากส้งข้อมูลสำเร็จ

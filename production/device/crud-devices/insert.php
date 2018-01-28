@@ -1,5 +1,5 @@
 <?php
-require '../../public/function.php';
+require '../../../public/function.php';
 $device_id = $_POST['device_id'];//echo $user_id;
 $device_name = $_POST['device_name'];
 $device_detail = $_POST['device_detail'];

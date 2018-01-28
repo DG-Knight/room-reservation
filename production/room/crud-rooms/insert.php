@@ -1,5 +1,5 @@
 <?php
-require '../../public/function.php';
+require '../../../public/function.php';
 $conn = PDOConnector();//ติดต่อฐานข้อมูล
 $room_status = $_POST['room_status'];
 $room_id = $_POST['room_id'];//echo $room_id;

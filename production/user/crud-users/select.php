@@ -1,6 +1,6 @@
 <?php
 $id = $_POST['user_id'];
-include '../../public/function.php';
+include '../../../public/function.php';
 $opt = '';
 try {
   $conn = PDOConnector();

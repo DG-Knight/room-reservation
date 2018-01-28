@@ -36,8 +36,8 @@
   <body class="nav-md footer_fixed" >
     <div class="container body">
       <div class="main_container">
-        <?php include_once 'menu.php'?>
-        <?php include_once 'header.php'?>
+        <?php include "layout/menu.php"?>
+        <?php include "layout/header.php"?>
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -153,7 +153,7 @@
           </div>
         </div>
         <!-- /page content -->
-        <?php include_once 'footer.php' ?>
+        <?php include "layout/footer.php" ?>
       </div>
     </div>
 
@@ -189,42 +189,4 @@
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
   </body>
-  <script>
-    $(document).ready(function(){
-      //delete
-      $('.delete_data').click(function(){//ตรวจสอบคลาส delete_data เมื่อมีการกดปุ่ม
-        var uid=$(this).attr("id");//รับค่า id จากปุ่มdeleteมาใส่ไว้ใน uid
-        //var status=confirm("Are you want delete ?");
-        swal({title: 'Are you sure?',
-              text: "You want be delete this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#d33',
-              cancelButtonColor: '#3085d6',
-              confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                  if (result.value) {//เช็กค่าว่าเป็น T|F
-                      console.log(result.value);//ปริ้นค้าออกทาง console log
-                      $.ajax({  url:"crud-room/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
-                                method:"post", //ด้วย method post
-                                data:{id:uid},//ส่งข้อมูลไปในรูปแบบ JSON
-                                success:function(data){ // หากส่งข้อมูลสำเร็จ
-                                  console.log(data);
-                                  swal(
-                                    'Deleted!',
-                                    'Your user has been deleted.',
-                                    'success'
-                                  ).then((result)=>{
-                                    if (result.value) {
-                                      location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
-                                    }
-                                  });
-                                }
-                              });
-                  }
-                });
-      });
-    })
-    $('#insertRoom').modal('show');
-  </script>
 </html>

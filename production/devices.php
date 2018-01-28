@@ -42,8 +42,8 @@ try {
    <body class="nav-md footer_fixed" >
      <div class="container body">
        <div class="main_container">
-         <?php include_once 'menu.php'?>
-         <?php include_once 'header.php'?>
+         <?php include "layout/menu.php";?>
+         <?php include "layout/header.php";?>
          <div class="right_col" role="main">
            <div class="row">
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -114,9 +114,9 @@ try {
 </div>
 </div>
 </div>
-<?php include "crud-devices/viewModal.php";?>
-<?php include "crud-devices/insertModal.php";?>
-<?php include_once 'footer.php'?>
+<?php include "device/crud-devices/viewModal.php";?>
+<?php include "device/crud-devices/insertModal.php";?>
+<?php include 'layout/footer.php';?>
 </div>
 </div>
 <!-- jQuery -->
@@ -164,7 +164,7 @@ $(document).ready(function(){
     e.preventDefault();//เวลาที่ทำการ debug ดูข้อมูลได้เลยไม่ต้องรีเฟสหน้า ใช้เพื่อดูการไหลของข้อมูลระหว่าง insert-form ไปยังไฟล์ insert.php
     var formData = new FormData($(this)[0]);
     $.ajax({ //เรียกใช้ ajax
-      url:"crud-devices/insert.php", //ส่งข้อมูลไปที่ insert.php
+      url:"device/crud-devices/insert.php", //ส่งข้อมูลไปที่ insert.php
       method:"post", //ด้วย method post
       data:formData,
       processData: false, //Not to process data
@@ -185,7 +185,7 @@ $(document).ready(function(){
   $('.update_data').click(function(){//เมื่อมีการกดปุ่ม view_data
     var did=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
     $.ajax({
-      url:"crud-devices/fetch.php",
+      url:"device/crud-devices/fetch.php",
       method:"post",
       data:{device_id:did},
       dataType:"json",
@@ -218,7 +218,7 @@ $(document).ready(function(){
         }).then((result) => {
             if (result.value) {//เช็กค่าว่าเป็น T|F
                 console.log(result.value);//ปริ้นค้าออกทาง console log
-                $.ajax({  url:"crud-devices/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
+                $.ajax({  url:"device/crud-devices/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
                           method:"post", //ด้วย method post
                           data:{device_id:did},//ส่งข้อมูลไปในรูปแบบ JSON
                           success:function(data){ // หากส่งข้อมูลสำเร็จ
@@ -241,7 +241,7 @@ $(document).ready(function(){
   $('.view_data').click(function(){//เมื่อมีการกดปุ่ม view_data
     var did=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
     $.ajax({
-      url:"crud-devices/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
+      url:"device/crud-devices/select.php", //ส่งข้อมูลไปทีไฟล์ select.php
       method:"post", //ด้วย method post
       data:{device_id:did},//ส่งข้อมูลไปในรูปแบบ JSON
       success:function(data){ // หากส้งข้อมูลสำเร็จ

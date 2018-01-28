@@ -1,5 +1,5 @@
 <?php
-require '../../public/function.php';
+require '../../../public/function.php';
 $user_id = $_POST['user_id'];//echo $user_id;
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
