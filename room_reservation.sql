@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2018 at 05:17 AM
+-- Generation Time: Jan 29, 2018 at 04:44 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -30,12 +30,20 @@ CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `booking_date_start` date NOT NULL,
-  `booking_date_stop` date NOT NULL,
-  `booking_time_start` time NOT NULL,
-  `booking_time_stop` time NOT NULL,
+  `booking_start_date` date NOT NULL,
+  `booking_end_date` date NOT NULL,
+  `booking_start_time` time NOT NULL,
+  `booking_end_time` time NOT NULL,
   `booking_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `booking`
+--
+
+INSERT INTO `booking` (`booking_id`, `user_id`, `room_id`, `booking_start_date`, `booking_end_date`, `booking_start_time`, `booking_end_time`, `booking_status`) VALUES
+(1, 15, 13, '2018-01-24', '2018-01-24', '08:00:00', '12:00:00', 0),
+(2, 15, 13, '2018-01-29', '2018-01-30', '10:00:00', '16:30:00', 0);
 
 -- --------------------------------------------------------
 
@@ -137,7 +145,10 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `room_name`, `room_detail`, `room_image`, `category`, `room_status`) VALUES
-(13, 'Meeting', 'สสสสสสสสส', 'IMG_20171204_215028.jpg', 2, 1);
+(13, 'Meeting', 'ใช้สำหรับการประชุม รองรับคนได้ 100 ที่นั่ง', 'Screenshot (22).png', 2, 1),
+(14, 'IoT Lab', 'จัดการเรียนการสอนเรื่อง IoT', 'Capture.PNG', 2, 1),
+(15, 'Common', '', '', 1, 1),
+(16, 'ฺB Center', '', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -172,7 +183,7 @@ CREATE TABLE `users` (
   `user_address` varchar(255) NOT NULL COMMENT 'ที่อยู่',
   `user_phone` varchar(12) NOT NULL COMMENT 'เบอร์โทรศัพท์',
   `user_email` varchar(100) NOT NULL COMMENT 'E-mail',
-  `user_password` varchar(20) NOT NULL COMMENT 'รหัสผ่าน',
+  `user_password` varchar(255) NOT NULL COMMENT 'รหัสผ่าน',
   `user_registered` datetime NOT NULL COMMENT 'เวลาที่ลงทะเบียน',
   `level_id` int(1) NOT NULL,
   `user_status` int(1) NOT NULL COMMENT 'เปิดใช้/ปิดใช้'
@@ -183,8 +194,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `user_sex`, `user_address`, `user_phone`, `user_email`, `user_password`, `user_registered`, `level_id`, `user_status`) VALUES
-(13, 'Apiwat', 'Dindang', 'F', '14/6 หมู่ 11 ตำบลกระบี่น้อย อำเภอเมือง จังหวัดกระบี่ 81000', '082-806-3850', 'sao.apiwat@gmail.com', '123456', '2018-01-11 02:28:20', 0, 1),
-(14, 'อภิวัฒน์', 'ดินแดง', 'M', '14/6 หมู่ 11', '082-806-3850', 'darkeye_whan@hotmail.com', 'apiwat2365', '2018-01-21 11:35:24', 1, 1);
+(15, 'อภิวัฒน์', 'ดินแดง', 'M', '14/6 หมู่ 11', '082-806-3850', 'admin@mail.com', 'e10adc3949ba59abbe56e057f20f883e', '2018-01-24 13:35:03', 0, 1),
+(16, 'Apiwat', 'Dindang', 'M', '14/6 หมู่ 11', '082-806-3850', 'user@mail.com', 'e10adc3949ba59abbe56e057f20f883e', '2018-01-24 14:18:00', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -253,7 +264,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `borrows`
 --
@@ -263,7 +274,7 @@ ALTER TABLE `borrows`
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `device_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `device_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `device_category`
 --
@@ -273,7 +284,7 @@ ALTER TABLE `device_category`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสห้อง', AUTO_INCREMENT=14;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสห้อง', AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `room_category`
 --
@@ -283,7 +294,7 @@ ALTER TABLE `room_category`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสสมาชิก', AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสสมาชิก', AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
