@@ -35,7 +35,7 @@
 		$_SESSION['AUTHEN']['ULEVEL'] = $authen->level_id;
 		$_SESSION['AUTHEN']['USEX'] = $authen->user_sex;
 		$_SESSION['AUTHEN']['UADDRESS'] = $authen->user_address;
-		$_SESSION['AUTHEN']['UPHONE'] = $authan->user_phone;
+		$_SESSION['AUTHEN']['UPHONE'] = $authen->user_phone;
 		$_SESSION['AUTHEN']['UREGISTERED'] = $authen->user_registered;
 
 		return true;

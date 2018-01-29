@@ -2,7 +2,6 @@
 include '../public/function.php';
 $sql = " ";
 $command = "";
-//$today =  date("Y-m-D");
 CheckAuthenticationAndAuthorization();
   $conn = PDOConnector();
   if (isset($_POST['search-rooms'])) {
@@ -17,6 +16,43 @@ CheckAuthenticationAndAuthorization();
     //$sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'"))';
     $query = $conn->prepare($sql);
     $query ->execute();
+
+  }
+  if (isset($_POST['InsertBooking'])) {
+    $bk_userID = $_POST['User_ID'];
+    $bk_userName = $_POST['UserName'];
+    $bk_roomID = $_POST['RoomID'];
+    //$bk_roomName = $_POST['RoomName'];
+    // date("Y-m-d")
+    $bk_startDate = $_POST['StartDate'];
+    // echo "StartDate after convart = ".$bk_startDate;
+    $bk_endDate = $_POST['EndDate'];
+    $bk_startTime = $_POST['StartTime'];
+    $bk_endTime = $_POST['EndTime'];
+    $bk_people = $_POST['People'];
+    $bk_phone = $_POST['Phone'];
+    $bk_subject = $_POST['Subject'];
+    $bk_status = $_POST['Status'];
+
+    $query = $conn->prepare('INSERT INTO booking(user_id, room_id, booking_start_date, booking_end_date, booking_start_time, booking_end_time, booking_subject, booking_user_name, booking_people, booking_phone, booking_status) VALUES(:bk_userID, :bk_roomID, :bk_startDate, :bk_endDate, :bk_startTime, :bk_endTime, :bk_subject, :bk_userName, :bk_people, :bk_phone, :bk_status)');
+    $result = $query->execute(array(
+      'bk_userID' => $bk_userID,
+      'bk_roomID' => $bk_roomID,
+      'bk_startDate' => $bk_startDate,
+      'bk_endDate' => $bk_endDate,
+      'bk_startTime' => $bk_startTime,
+      'bk_endTime' => $bk_endTime,
+      'bk_subject' => $bk_subject,
+      'bk_userName' => $bk_userName,
+      'bk_people' => $bk_people,
+      'bk_phone' => $bk_phone,
+      'bk_status' => $bk_status
+        ));
+      if ($result) {
+        echo "<script>alert('บันทึกการจองสำเร็จ')
+              window.location ='ask-booking.php';
+              </script>";
+      }
   }
   //$sql  = 'SELECT * FROM rooms a LEFT JOIN booking b ON a.room_id=b.room_id WHERE b.booking_start_date = curdate()';
 
@@ -143,20 +179,21 @@ CheckAuthenticationAndAuthorization();
      <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
      <!-- Custom Theme Scripts -->
      <script src="../build/js/custom.min.js"></script>
+     <script src="../vendors/sweetalert2/dist/sweetalert2.min.js"></script>
      <script>
      $(document).ready(function(){
        $("#StartDate").daterangepicker({
-		       singleDatePicker:!0,
-		         singleClasses:"picker_2",
-		         locale: {
-                 format: 'DD-MM-YYYY'
+           singleDatePicker:!0,
+             singleClasses:"picker_2",
+             locale: {
+                 format: 'YYYY-MM-DD'
              }
         });
         $("#EndDate").daterangepicker({
- 		       singleDatePicker:!0,
- 		         singleClasses:"picker_2",
- 		         locale: {
-                  format: 'DD-MM-YYYY'
+           singleDatePicker:!0,
+             singleClasses:"picker_2",
+             locale: {
+                  format: 'YYYY-MM-DD'
               }
          });
          $('#StartTime').datetimepicker({
@@ -169,7 +206,7 @@ CheckAuthenticationAndAuthorization();
             var bid=$(this).attr("id");//รับค่า id จากปุ่มวิวมาใส่ไว้ใน uid
             console.log(bid);
            $.ajax({
-             url:"booking/crud-booking/fetch.php", //ส่งข้อมูลไปทีไฟล์ select.php
+             url:"booking/crud-booking/fetch.php",
              method:"post", //ด้วย method post
              data:{room_id:bid},//ส่งข้อมูลไปในรูปแบบ JSON
              dataType:"json",
@@ -181,8 +218,28 @@ CheckAuthenticationAndAuthorization();
              }
            });
          });
-      });
+         //insert Booking
+         // $('#insert-booking').on('submit',function(e){
+         //   e.preventDefault();
+         //   $.ajax({
+         //     url:"booking/crud-booking/insert.php",
+         //     method:"post",
+         //     data:$('#insert-booking').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
+         //     beforeSend:function(){
+         //       $('#insert').val("กำลังบันทึก")ว
+         //     },
+         //     success:function(data){
+         //       console.log(data);
+         //       $('#insert-booking')[0].reset();
+         //       $('#chooseModal').modal('hide');
+         //      }
+         //    });
+         //  });
+
+        });
 
      </script>
    </body>
+
+
  </html>

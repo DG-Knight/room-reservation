@@ -30,7 +30,7 @@
           <li><a><i class="fa fa-edit"></i> ข้อมูลห้อง <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="booking.php"> จองห้อง </a></li>
-              <li><a href="index.php?file=b-history"> สอบถามการจอง </a></li>
+              <li><a href="ask-booking.php"> สอบถามการจอง </a></li>
               <li><a href="index.php?file=b-history"> ประวัติการจอง </a></li>
             </ul>
           </li>

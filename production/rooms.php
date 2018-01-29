@@ -175,7 +175,7 @@ $(document).ready(function(){
         $('#insert').val("Save...");//ให้ทำการเปลี่ยนข้อความบนปุ่มเป็น Insert...
       },
       success:function(data){// หากส้งข้อมูลสำเร็จ
-        $('#insert-form')[0].reset()//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
+        $('#insert-form')[0].reset();//ให้รีเซ็ตข้อมูลที่อยู่ใน form ทั้งหมด
         $('#addModal').modal('hide');//ปิด Modal
         //alert(data);
         location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง

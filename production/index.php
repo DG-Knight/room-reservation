@@ -93,7 +93,7 @@
                                 </div>
                               </div>
                               <div class="pricing_footer">
-                                <a href="index.php?file=booking" class="btn btn-success btn-block" role="button">จอง <span> now !</span></a>
+                                <a href="booking.php" class="btn btn-success btn-block" role="button">จอง</a>
                               </div>
                             </div>
                           </div>
