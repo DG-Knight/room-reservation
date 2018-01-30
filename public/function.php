@@ -111,9 +111,9 @@
 		return $result;
     $conn = '';
 	}
-	function DeleteRoom($id){
+	function GetAllRooms(){
 		$conn = PDOConnector();
-		$sql = "DELETE FROM rooms WHERE room_id=$id";
+		$sql = "SELECT * FROM rooms ";
 	  $query = $conn->prepare($sql);
 	  $result = $query ->execute();
 		return $result;

@@ -7,15 +7,21 @@ CheckAuthenticationAndAuthorization();
   if (isset($_POST['search-rooms'])) {
 
     $command = "SearchEmptyRooms";
+    $roomID = $_POST['RoomID'];
     $startDate = $_POST['StartDate'];
     $endDate = $_POST['EndDate'];
     $startTime = $_POST['StartTime'];
     $endTime = $_POST['EndTime'];
-    //echo "StartTime = ".$startTime."<br>EndTime = ".$endTime;
-    $sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'") OR (TIME(booking_start_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'") OR (TIME(booking_end_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'"))';
-    //$sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'"))';
+    $sql = 'SELECT * FROM booking INNER JOIN rooms ON booking.room_id=rooms.room_id WHERE booking.room_id = "'.$roomID.'" AND booking_start_date = "'.$startDate.'"
+            AND booking_end_date = "'.$endDate.'" AND booking_start_time = "'.$startTime.'" AND booking_end_time = "'.$endTime.'"';
     $query = $conn->prepare($sql);
-    $query ->execute();
+    $query->execute();
+    //echo "roomID=".$roomID;
+    //echo "StartTime = ".$startTime."<br>EndTime = ".$endTime;
+    // $sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'") OR (TIME(booking_start_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'") OR (TIME(booking_end_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'"))';
+    // //$sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'"))';
+    // $query = $conn->prepare($sql);
+    // $query ->execute();
 
   }
   if (isset($_POST['InsertBooking'])) {

@@ -11,9 +11,30 @@
       <center>
         <h4> <small> กรุณาเลือกวันและเวลาที่ท่านต้องการจองค่ะ !</small></h4>
       </center>
-     <!-- DateTimePicker StartDate -->
+
      <div class="row">
        <form id="search-form" method="post">
+           <div class="form-group">
+             <lable><strong>เลือกห้อง</strong></label>
+               <div class="has-feedback">
+                 <select name="RoomID" class="form-control" >
+                   <option>เลือก</option>
+                  <?php
+                  $conn = PDOConnector();
+                  $sql = "SELECT * FROM rooms ";
+                  $query = $conn->prepare($sql);
+                  $query ->execute();
+                   if ($query->rowCount()>0) {
+                     while ($data = $query->fetch(PDO::FETCH_OBJ)) {
+                    echo '<option neme="RoomID" value="'.$data->room_id.'">'.$data->room_name.'</option>';
+                  }}
+                  ?>
+                </select>
+               </div>
+           </div>
+     </div>
+     <!-- DateTimePicker StartDate -->
+     <div class="row">
        <div class="form-group">
        <lable><strong>วันที่เริ่ม</strong></label>
            <div class="has-feedback">

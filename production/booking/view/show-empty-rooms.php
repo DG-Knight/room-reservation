@@ -1,10 +1,16 @@
 <?php
-   if ($query->rowCount()>0) {
+if ($query->rowCount()>0) {
+    echo "ไม่เย้";
+  echo "<script>
+          alert('ห้องและเวลาที่ท่านเลือกเต็มแล้วค่ะ!')
+          window.location ='booking.php';
+        </script>";
+}else{
+  echo "เย้";
      $i = 1;
      while ($data = $query -> fetch(PDO::FETCH_OBJ)) {
 ?>
   <tr>
-
     <td><?=$i++ ?></td>
     <td>
       <a class="image view view-first">
