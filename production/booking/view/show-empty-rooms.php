@@ -39,7 +39,7 @@
     </td>
 
     <td>
-      <button class="btn btn-success"><i class="fa fa-check"></i> ว่าง </button>
+      <button class="btn btn-success btn-round"><i class="fa fa-check"></i> ว่าง </button>
     </td>
 
     <td>

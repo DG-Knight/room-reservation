@@ -1,7 +1,7 @@
 <?php
 include '../public/function.php';
 CheckAuthenticationAndAuthorization();
-require 'booking/crud-booking/insert.php';
+require 'booking/crud-booking/query-booking.php';
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +24,8 @@ require 'booking/crud-booking/insert.php';
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -165,8 +167,45 @@ require 'booking/crud-booking/insert.php';
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-datetimepicker -->
     <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <script src="../vendors/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script>
+    //delete
+      $('.cancle').click(function(){//ตรวจสอบคลาส delete_data เมื่อมีการกดปุ่ม
+        var cid=$(this).attr("id");//รับค่า id จากปุ่มdeleteมาใส่ไว้ใน uid
+        //var status=confirm("Are you want delete ?");
+        swal({title: 'ยกเลิกการจอง?',
+            text: "คุณต้องการยกเลิกรายการจองนี้ใช่หรือไม่!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, ฉันต้องการยกเลิก!'
+            }).then((result) => {
+                if (result.value) {//เช็กค่าว่าเป็น T|F
+                    console.log(result.value);//ปริ้นค้าออกทาง console log
+                    $.ajax({  url:"booking/crud-booking/delete.php", //ส่งข้อมูลไปทีไฟล์ delete.php
+                              method:"post", //ด้วย method post
+                              data:{booking_id:cid},//ส่งข้อมูลไปในรูปแบบ JSON
+                              success:function(data){ // หากส่งข้อมูลสำเร็จ
+                                console.log(data);
+                                swal(
+                                  'ยกเลิกสำเร็จแล้ว!',
+                                  'คุณได้ยกเลิกรายการจองนี้แล้ว.',
+                                  'success'
+                                ).then((result)=>{
+                                  if (result.value) {
+                                    location.reload();//โหลดหน้าเว็บใหม่อีกครั้ง
+                                  }
+                                });
+                              }
+                            });
+                }
+            });
+    });
+    </script>
   </body>
 </html>

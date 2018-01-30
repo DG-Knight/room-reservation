@@ -1,15 +1,11 @@
 <?php
 include '../public/function.php';
 CheckAuthenticationAndAuthorization();
-try {
   $conn = PDOConnector();
   //$sql = "SELECT * FROM users";
   $sql  = 'SELECT * FROM users inner join level_user on users.level_id=level_user.level_id';
   $query = $conn->prepare($sql);
   $query ->execute();
-} catch (\Exception $e) {
-  echo "ไม่สามารถดึงข้อมูลได้: " .$e->getMessage();
-}
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -108,8 +104,8 @@ try {
 </div>
 </div>
 </div>
-<?php include "user/crud-users/viewModal.php";?>
-<?php include "user/crud-users/insertModal.php";?>
+<?php include "user/view/viewModal.php";?>
+<?php include "user/view/insertModal.php";?>
 <?php include "layout/footer.php"?>
 </div>
 </div>

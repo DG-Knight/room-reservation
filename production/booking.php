@@ -55,8 +55,6 @@ CheckAuthenticationAndAuthorization();
       }
   }
   //$sql  = 'SELECT * FROM rooms a LEFT JOIN booking b ON a.room_id=b.room_id WHERE b.booking_start_date = curdate()';
-
-
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -79,6 +77,8 @@ CheckAuthenticationAndAuthorization();
      <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
      <!-- bootstrap-daterangepicker -->
      <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+     <!-- jQuery custom content scroller -->
+     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
      <!-- Custom Theme Style -->
      <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -102,7 +102,7 @@ CheckAuthenticationAndAuthorization();
 
              <div class="row">
                <div class="col-md-3 col-sm-3 col-xs-12">
-               <?php include 'booking/search/search-box.php' ?>
+               <?php include 'booking/view/search-box.php' ?>
                </div><!--/col search room-->
                <div class="col-md-9 col-sm-9 col-xs-12"><!--col show allow room-->
                  <div class="x_panel">
@@ -138,7 +138,7 @@ CheckAuthenticationAndAuthorization();
                        </thead>
                        <tbody>
                          <?php if ($command == "SearchEmptyRooms") {
-                                include 'booking/crud-booking/show-empty-rooms.php';
+                                include 'booking/view/show-empty-rooms.php';
                               }
                          ?>
                        </tbody>
@@ -146,7 +146,6 @@ CheckAuthenticationAndAuthorization();
                      </div>
                     </div>
                      <!-- end project list -->
-
                    </div>
                  </div>
                </div>
@@ -155,7 +154,7 @@ CheckAuthenticationAndAuthorization();
            </div>
          </div>
          <!-- /page content -->
-         <?php include 'booking/crud-Booking/insertModal.php'; ?>
+         <?php include 'booking/view/insertModal.php'; ?>
          <!-- footer content -->
          <?php include 'layout/footer.php'?>
          <!-- /footer content -->
@@ -177,6 +176,8 @@ CheckAuthenticationAndAuthorization();
      <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
      <!-- bootstrap-datetimepicker -->
      <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+     <!-- jQuery custom content scroller -->
+     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
      <!-- Custom Theme Scripts -->
      <script src="../build/js/custom.min.js"></script>
      <script src="../vendors/sweetalert2/dist/sweetalert2.min.js"></script>
@@ -218,28 +219,8 @@ CheckAuthenticationAndAuthorization();
              }
            });
          });
-         //insert Booking
-         // $('#insert-booking').on('submit',function(e){
-         //   e.preventDefault();
-         //   $.ajax({
-         //     url:"booking/crud-booking/insert.php",
-         //     method:"post",
-         //     data:$('#insert-booking').serialize(),//มัดข้อมูลร่วมกันแล้วส่งข้อมูลไปเป็นก้อนในรูปแบบ string
-         //     beforeSend:function(){
-         //       $('#insert').val("กำลังบันทึก")ว
-         //     },
-         //     success:function(data){
-         //       console.log(data);
-         //       $('#insert-booking')[0].reset();
-         //       $('#chooseModal').modal('hide');
-         //      }
-         //    });
-         //  });
 
         });
-
      </script>
    </body>
-
-
  </html>

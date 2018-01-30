@@ -1,15 +1,11 @@
 <?php
 include '../public/function.php';
 CheckAuthenticationAndAuthorization();
-try {
   $conn = PDOConnector();
   $sql = "SELECT * FROM devices";
   $query = $conn->prepare($sql);
   $query ->execute();
-} catch (\Exception $e) {
-  echo "ไม่สามารถดึงข้อมูลได้: " .$e->getMessage();
-}
- ?>
+?>
  <!DOCTYPE html>
  <html lang="en">
    <head>
@@ -114,8 +110,8 @@ try {
 </div>
 </div>
 </div>
-<?php include "device/crud-devices/viewModal.php";?>
-<?php include "device/crud-devices/insertModal.php";?>
+<?php include "device/view/viewModal.php";?>
+<?php include "device/view/insertModal.php";?>
 <?php include 'layout/footer.php';?>
 </div>
 </div>

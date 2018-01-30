@@ -53,8 +53,8 @@
               <li><a href="users.php">จัดการสมาชิก</a></li>
               <li><a href="rooms.php">จัดการห้อง</a></li>
               <li><a href="devices.php">จัดการอุปกรณ์</a></li>
-              <li><a href="index.php?file=active-booking">อนุมัติการจองห้อง</a></li>
-              <li><a href="index.php?file=active-borrow">อนุมัติการยืมอุปกรณ์</a></li>
+              <li><a href="active-booking.php">อนุมัติการจองห้อง</a></li>
+              <li><a href="active-borrow.php">อนุมัติการยืมอุปกรณ์</a></li>
               <li><a href="inex.php?file=return-devices"> คืนอุปกรณ์ </a></li>
             </ul>
           </li>

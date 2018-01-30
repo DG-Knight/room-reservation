@@ -1,15 +1,11 @@
 <?php
 include '../public/function.php';
 CheckAuthenticationAndAuthorization();
-try {
   $conn = PDOConnector();
   //$sql = "SELECT * FROM rooms";
   $sql  = 'SELECT * FROM rooms inner join room_category on rooms.category=room_category.room_category_id';
   $query = $conn->prepare($sql);
   $query ->execute();
-} catch (\Exception $e) {
-  echo "ไม่สามารถดึงข้อมูลได้: " .$e->getMessage();
-}
  ?>
  <!DOCTYPE html>
  <html lang="en">
@@ -111,8 +107,8 @@ try {
 </div>
 </div>
 </div>
-<?php include "room/crud-rooms/viewModal.php";?>
-<?php include "room/crud-rooms/insertModal.php";?>
+<?php include "room/view/viewModal.php";?>
+<?php include "room/view/insertModal.php";?>
 <?php include "layout/footer.php"?>
 </div>
 </div>
