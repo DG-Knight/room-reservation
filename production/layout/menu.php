@@ -45,15 +45,28 @@
       </div>
       <!--section admin menu-->
       <?php if ($_SESSION['AUTHEN']['ULEVEL']==0) { ?>
+
       <div class="menu_section">
         <h3>Admin</h3>
         <ul class="nav side-menu">
-          <li><a><i class="fa fa-cogs"></i> Configuration <span class="fa fa-chevron-down"></span></a>
+          <li><a><i class="fa fa-cogs"></i> จัดการข้อมูลสมาชิก <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="users.php">จัดการสมาชิก</a></li>
-              <li><a href="rooms.php">จัดการห้อง</a></li>
-              <li><a href="devices.php">จัดการอุปกรณ์</a></li>
+              <li><a href="users.php">ข้อมูลสมาชิก</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav side-menu">
+          <li><a><i class="fa fa-cogs"></i> จัดการข้อมูลการห้อง <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="rooms.php">ข้อมูลการห้อง</a></li>
               <li><a href="active-booking.php">อนุมัติการจองห้อง</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav side-menu">
+          <li><a><i class="fa fa-cogs"></i> จัดการข้อมูลอุปกรณ์ <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="devices.php">ข้อมูลอุปกรณ์</a></li>
               <li><a href="active-borrow.php">อนุมัติการยืมอุปกรณ์</a></li>
               <li><a href="inex.php?file=return-devices"> คืนอุปกรณ์ </a></li>
             </ul>
