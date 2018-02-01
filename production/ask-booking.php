@@ -108,8 +108,8 @@ require 'booking/crud-booking/query-booking.php';
                             <td>
                               <?=$data->booking_subject;?>
                             </td>
-                            <td>วันที่ : <?=$data->booking_start_date;?><br />เวลา : <?=$data->booking_start_time;?></td>
-                            <td>วันที่ : <?=$data->booking_end_date;?><br />เวลา : <?=$data->booking_end_time;?></td>
+                            <td>วันที่ : <?=date("d/m/Y",strtotime($data->booking_start_date));?><br />เวลา : <?=date("H:i",strtotime($data->booking_start_time))." น.";?></td>
+                            <td>วันที่ : <?=date("d/m/Y",strtotime($data->booking_end_date));?><br />เวลา : <?=date("H:i",strtotime($data->booking_end_time))." น.";?></td>
 
                             <td><center>
                               <?php
