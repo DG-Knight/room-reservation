@@ -31,7 +31,14 @@
             <ul class="nav child_menu">
               <li><a href="booking.php"> จองห้อง </a></li>
               <li><a href="ask-booking.php"> สอบถามการจอง </a></li>
-              <li><a href="index.php?file=b-history"> ประวัติการจอง </a></li>
+              <li><a href="index.php?file=b-history"><a> ประวัติการจอง <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: block;">
+                  <li class="sub_menu"><a href="booking-history.php?file=booking/history/active">รายการที่อนุมัติ</a>
+                  </li>
+                  <li><a href="booking-history.php?file=booking/history/block">รายการที่ไม่อนุมัติ</a>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li><a><i class="fa fa-edit"></i> ข้อมูลอุปกรณ์ <span class="fa fa-chevron-down"></span></a>
