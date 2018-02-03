@@ -209,7 +209,7 @@ $(document).ready(function(){
         //$('#room_image').val(data.room_image);
         $('#category').val(data.category);
         $('#device_status').val(data.device_status);
-        $('#device_quantity').val(data.device_quantity);
+        $('#device_amount').val(data.device_amount);
         $('#title').html("แก้ไขข้อมูล");//เพิ่มข้อความในใน title ของ Modal เป็น แก้ไขข้อมูล
         $('#insert').val("Update");//เปลี่ยนข้อมความในปุ่ม insert เป็น Update
         $('#addModal').modal('show');
@@ -245,7 +245,7 @@ $(document).ready(function(){
                               }
                             });
                           }
-                        });
+                });
             }
         });
 });

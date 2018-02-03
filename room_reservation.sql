@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2018 at 04:44 AM
+-- Generation Time: Feb 03, 2018 at 05:05 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -34,6 +34,10 @@ CREATE TABLE `booking` (
   `booking_end_date` date NOT NULL,
   `booking_start_time` time NOT NULL,
   `booking_end_time` time NOT NULL,
+  `booking_subject` varchar(255) NOT NULL,
+  `booking_user_name` varchar(100) NOT NULL,
+  `booking_people` int(11) NOT NULL,
+  `booking_phone` varchar(11) NOT NULL,
   `booking_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -41,9 +45,10 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `user_id`, `room_id`, `booking_start_date`, `booking_end_date`, `booking_start_time`, `booking_end_time`, `booking_status`) VALUES
-(1, 15, 13, '2018-01-24', '2018-01-24', '08:00:00', '12:00:00', 0),
-(2, 15, 13, '2018-01-29', '2018-01-30', '10:00:00', '16:30:00', 0);
+INSERT INTO `booking` (`booking_id`, `user_id`, `room_id`, `booking_start_date`, `booking_end_date`, `booking_start_time`, `booking_end_time`, `booking_subject`, `booking_user_name`, `booking_people`, `booking_phone`, `booking_status`) VALUES
+(6, 15, 14, '2018-01-29', '2018-01-30', '22:55:00', '22:55:00', 'ประชุมกรรมการ', 'อภิวัฒน์ ดินแดง', 11, '082-806-385', 2),
+(7, 15, 13, '2018-02-03', '2018-02-04', '23:25:00', '23:25:00', 'ประชุมกรรมการ', 'อภิวัฒน์ ดินแดง', 10, '082-806-385', 2),
+(9, 15, 16, '2018-01-31', '2018-02-01', '11:23:00', '11:23:00', 'ประชุมกรรมการ', 'Nittaya', 21, '082-806-385', 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +79,7 @@ CREATE TABLE `devices` (
   `device_name` varchar(255) NOT NULL,
   `device_detail` text NOT NULL,
   `device_image` varchar(255) NOT NULL,
-  `device_quantity` int(11) NOT NULL,
+  `device_amount` int(11) NOT NULL,
   `category` int(3) NOT NULL,
   `device_status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -83,7 +88,7 @@ CREATE TABLE `devices` (
 -- Dumping data for table `devices`
 --
 
-INSERT INTO `devices` (`device_id`, `device_name`, `device_detail`, `device_image`, `device_quantity`, `category`, `device_status`) VALUES
+INSERT INTO `devices` (`device_id`, `device_name`, `device_detail`, `device_image`, `device_amount`, `category`, `device_status`) VALUES
 (9, 'ค้อน', 'aaaaaaaa', '', 112, 1, 1);
 
 -- --------------------------------------------------------
@@ -148,7 +153,8 @@ INSERT INTO `rooms` (`room_id`, `room_name`, `room_detail`, `room_image`, `categ
 (13, 'Meeting', 'ใช้สำหรับการประชุม รองรับคนได้ 100 ที่นั่ง', 'Screenshot (22).png', 2, 1),
 (14, 'IoT Lab', 'จัดการเรียนการสอนเรื่อง IoT', 'Capture.PNG', 2, 1),
 (15, 'Common', '', '', 1, 1),
-(16, 'ฺB Center', '', '', 1, 1);
+(16, 'ฺB Center', '', '', 1, 1),
+(17, 'A28', 'ddddddddd', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -264,7 +270,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `borrows`
 --
@@ -284,7 +290,7 @@ ALTER TABLE `device_category`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสห้อง', AUTO_INCREMENT=17;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัสห้อง', AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `room_category`
 --

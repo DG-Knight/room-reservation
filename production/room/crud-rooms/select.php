@@ -19,7 +19,23 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
   }else{
     $status = "เปิดใช้งาน";
   }
-
+  //check file
+  if ($row->room_image) {
+    $fileName = 'images/device-img/'.$row->room_image;
+    //echo $fileName;
+    if( file_exists($fileName) ){
+      //echo "มีไฟล์";
+      $image = '<img src="'.$fileName.'" style="width:100px">';
+    }else{
+      //echo "ไม่มีไฟล์";
+      $fileName =  "images/noimage.jpg";
+      $image = '<img src="'.$fileName.'" style="width:100px">';
+    }
+  }else {
+      $fileName =  "images/noimage.jpg";
+      $image = '<img src="'.$fileName.'" style="width:100px">';
+  }
+  // display data
       $opt.='<tr>
               <td><lable><b>ID</b></lable></td>
               <td>'.$row->room_id.'</td>
@@ -42,7 +58,7 @@ while ($row=$query -> fetch(PDO::FETCH_OBJ)) {
             <tr>';
       $opt.='<tr>
               <td><lable><b>รูปภาพ</b></lable></td>
-              <td><center><img width="300" src="images/room-img/'.$row->room_image.'"></center></td>
+              <td><center>'.$image.'</center></td>
             <tr>';
 }
     $opt.='</table></div>';

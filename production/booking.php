@@ -11,8 +11,8 @@ CheckAuthenticationAndAuthorization();
     $endDate = $_POST['EndDate'];
     $startTime = $_POST['StartTime'];
     $endTime = $_POST['EndTime'];
-    
-    $sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'") OR (TIME(booking_start_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'") OR (TIME(booking_end_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'"))';
+
+    $sql  = 'SELECT * FROM rooms WHERE room_id AND room_status=1 NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'") OR (TIME(booking_start_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'") OR (TIME(booking_end_time) BETWEEN "'.$startTime.'" AND "'.$endTime.'"))';
     //$sql  = 'SELECT * FROM rooms WHERE room_id NOT IN(SELECT room_id FROM booking WHERE (DAY(booking_start_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'" ) OR (DAY(booking_end_date) BETWEEN "'.$startDate.'" AND "'.$endDate.'"))';
     $query = $conn->prepare($sql);
     $query ->execute();
