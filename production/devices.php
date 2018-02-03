@@ -61,7 +61,7 @@ CheckAuthenticationAndAuthorization();
         <!-- <tr BGCOLOR = "#2ecc71" style="color:#ffffff"> -->
         <tr>
           <th>#</th>
-          <th>ภาพ</th>
+            <th width="15%">รูปภาพ</th>
           <th>สถานะ</th>
           <th width="27.5%">ชื่อ</th>
           <th width="27.5%">รายละเอียด</th>
@@ -80,8 +80,24 @@ CheckAuthenticationAndAuthorization();
         <tr>
           <td><?=$i++;?></td>
           <td>
-            <div class="media">
-                <img src="images/media.jpg" class="img-responsive" style="width: 640px;">
+            <div class="image view view-first"><center>
+              <?php
+                if ($data->device_image) {
+                  $fileName = 'images/device-img/'.$data->device_image;
+                  //echo $fileName;
+                  if( file_exists($fileName) ){
+                    //echo "มีไฟล์";
+                    echo '<img src="'.$fileName.'" style="width:100px">';
+                  }else{
+                    //echo "ไม่มีไฟล์";
+                    $fileName =  "images/noimage.jpg";
+                    echo '<img src="'.$fileName.'" style="width:100px">';
+                  }
+                }else {
+                    $fileName =  "images/noimage.jpg";
+                    echo '<img src="'.$fileName.'" style="width:100px">';
+                }
+              ?></center>
             </div>
           </td>
           <td class="text-center">
@@ -95,9 +111,9 @@ CheckAuthenticationAndAuthorization();
           </td>
           <td><h4><?=$data->device_name;?></h4></td>
           <td><h4><?=$data->device_detail;?></h4></td>
-          <td class="text-center"><h4><?=$data->device_quantity;?></h4></td>
+          <td class="text-center"><h4><?=$data->device_amount;?></h4></td>
           <td class="text-center"><button type="button" name="view" class="btn btn-info view_data " id="<?=$data->device_id;?>"><i class="fa fa-eye"> ดูข้อมูล</i></button></td>
-          <th class="text-center"><button type="button"  class="btn btn-success update_data" id="<?=$data->device_id;?>"><i class="fa fa-gear"> แก้ไข</i></button></th>
+          <td class="text-center"><button type="button"  class="btn btn-success update_data" id="<?=$data->device_id;?>"><i class="fa fa-gear"> แก้ไข</i></button></td>
           <td class="text-center"><button type="button" name="delete" class="btn btn-danger delete_data" id="<?=$data->device_id;?>"><i class="fa fa-trash"> ลบ</i></button></td>
         </tr>
         <?php }} ?>

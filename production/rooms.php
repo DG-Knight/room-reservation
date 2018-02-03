@@ -61,8 +61,8 @@ CheckAuthenticationAndAuthorization();
         <!-- <tr BGCOLOR = "#2ecc71" style="color:#ffffff"> -->
         <tr>
           <th width="5%">#</th>
+          <th width="15%">รูปภาพ</th>
           <th>ชื่อ</th>
-          <!-- <th>รูปภาพ</th> -->
           <th width="10%">สถานะ</th>
           <th width="10%">ดูข้อมูล</th>
           <th width="10%">แก้ไข</th>
@@ -77,14 +77,26 @@ CheckAuthenticationAndAuthorization();
         ?>
         <tr>
           <td><?=$i++;?></td>
+          <td><center><a class="image view view-first">
+            <?php
+              if ($data->room_image) {
+                $fileName = 'images/room-img/'.$data->room_image;
+                //echo $fileName;
+                if( file_exists($fileName) ){
+                  //echo "มีไฟล์";
+                  echo '<img src="'.$fileName.'" style="width:100px">';
+                }else{
+                  //echo "ไม่มีไฟล์";
+                  $fileName =  "images/noimage.jpg";
+                  echo '<img src="'.$fileName.'" style="width:100px">';
+                }
+              }else {
+                  $fileName =  "images/noimage.jpg";
+                  echo '<img src="'.$fileName.'" style="width:100px">';
+              }
+            ?></a></center>
+          </td>
           <td><center><?=$data->room_name;?></center></td>
-          <!-- <th>
-              <div class="items"id="panelPrecios">
-                <a data-toggle="tooltip" data-placement="top" title="<img width='200' src='images/room-img/<?//=$data->room_image;?>'>">
-                  <?//=$data->room_image;?>
-                </a>
-              </div>
-          </th> -->
           <td>
             <center>
               <?php if ($data->room_status==0) { ?>

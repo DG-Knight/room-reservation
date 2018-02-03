@@ -45,7 +45,7 @@ CheckAuthenticationAndAuthorization();
 
             <div class="row">
               <?php require 'booking/crud-booking/active.php'; ?>
-              <?php include 'booking/view/view-allow.php'; ?>
+              <?php include 'booking/view/view-active.php'; ?>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ $('.allow').click(function(){//ตรวจสอบคลาส
   var bid=$(this).attr("id");//รับค่า id จากปุ่ม
   console.log(bid);
   $.ajax({
-    url:"booking/crud-booking/allow-or-block.php",
+    url:"booking/crud-booking/active-or-block.php",
     method:"post",
     data:{booking_id:bid,booking_status:1},
     success:function(data){
@@ -106,7 +106,7 @@ $('.block').click(function(){//ตรวจสอบคลาส
   var bid=$(this).attr("id");//รับค่า id จากปุ่ม
   console.log(bid);
   $.ajax({
-    url:"booking/crud-booking/allow-or-block.php",
+    url:"booking/crud-booking/active-or-block.php",
     method:"post",
     data:{booking_id:bid,booking_status:2},
     success:function(data){

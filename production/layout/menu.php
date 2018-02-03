@@ -43,7 +43,7 @@
           </li>
           <li><a><i class="fa fa-edit"></i> ข้อมูลอุปกรณ์ <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="index.php?file=borrow"> ยืมอุปกรณ์ </a></li>
+              <li><a href="borrow.php"> ยืมอุปกรณ์ </a></li>
               <li><a href="index.php?file=b-history"> สอบถามการยืม </a></li>
               <li><a href="index.php?file=br-history"> ประวัติการยืม/คืนอุปกรณ์ </a></li>
             </ul>

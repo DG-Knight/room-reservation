@@ -33,7 +33,7 @@
               <td><?=$i++ ?></td>
                   <td>
                     <a class="image view view-first">
-                      <?php
+                    <?php
                       if ($data->room_image) {
                         $fileName = 'images/room-img/'.$data->room_image;
                         //echo $fileName;
@@ -48,8 +48,7 @@
                       }else {
                         $fileName =  "images/noimage.jpg";
                         echo '<img src="'.$fileName.'" style="width:100px">';
-                      }
-                  ?>
+                      }?>
                 </a>
               </td>
 

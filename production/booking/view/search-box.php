@@ -59,7 +59,7 @@
    </div>
 
    <div class="row">
-     <center><button type="submit" name="search-rooms" class="btn btn-round btn-primary"><i class="fa fa-search"></i> ค้นหาห้องว่าง</button></center>
+     <center><button type="submit" name="SearchRooms" class="btn btn-round btn-primary"><i class="fa fa-search"></i> ค้นหาห้องว่าง</button></center>
      </form>
    </div>
 
