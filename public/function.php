@@ -32,6 +32,7 @@ function Authentication($user_email, $user_password){
 		$_SESSION['AUTHEN']['UEMAIL'] = $authen->user_email;
 		$_SESSION['AUTHEN']['ULEVEL'] = $authen->level_id;
 		$_SESSION['AUTHEN']['USEX'] = $authen->user_sex;
+		$_SESSION['AUTHEN']['UIMAGE'] = $authen->user_image;
 		$_SESSION['AUTHEN']['UADDRESS'] = $authen->user_address;
 		$_SESSION['AUTHEN']['UPHONE'] = $authen->user_phone;
 		$_SESSION['AUTHEN']['UREGISTERED'] = $authen->user_registered;
@@ -79,6 +80,23 @@ function CheckAuthenticationAndAuthorization(){
 		return $result;
     $conn = '';
 	}
+function GetImageProfile(){
+	if ($_SESSION['AUTHEN']['UIMAGE']) {
+			$fileName = 'images/'.$_SESSION['AUTHEN']['UIMAGE'];
+			if( file_exists($fileName) ){
+				//echo "มีไฟล์";
+				echo '<img src="'.$fileName.'" class="img-circle profile_img">';
+			}else{
+				//echo "ไม่มีไฟล์";
+				$fileName =  "images/no-user-image.png";
+				echo '<img src="'.$fileName.'" class="img-circle profile_img">';
+			}
+		}else {
+			$fileName =  "images/no-user-image.png";
+			echo '<img src="'.$fileName.'" class="img-circle profile_img">';
+	}
+}
+
 	function DeleteRoom($id){
 		$conn = PDOConnector();
 		$sql = "DELETE FROM rooms WHERE room_id=$id";

@@ -9,7 +9,23 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="">
           <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="images/img.jpg" alt=""><?php echo $_SESSION['AUTHEN']['UNAME']."&nbsp".$_SESSION['AUTHEN']['ULAST']?>
+            <?php
+              if ($_SESSION['AUTHEN']['UIMAGE']) {
+                $fileName = 'images/'.$_SESSION['AUTHEN']['UIMAGE'];
+                if( file_exists($fileName) ){
+                  //echo "มีไฟล์";
+                  echo '<img src="'.$fileName.'">';
+                }else{
+                //echo "ไม่มีไฟล์";
+                  $fileName =  "images/no-user-image.png";
+                  echo '<img src="'.$fileName.'">';
+                }
+              }else {
+                $fileName =  "images/no-user-image.png";
+                echo '<img src="'.$fileName.'">';
+              }
+            ?>
+            <?php echo $_SESSION['AUTHEN']['UNAME']."&nbsp".$_SESSION['AUTHEN']['ULAST']?>
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
